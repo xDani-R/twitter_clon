@@ -100,6 +100,8 @@ GEM
       reline (>= 0.3.8)
     drb (2.2.1)
     erubi (1.13.0)
+    faker (3.2.0)
+      i18n (>= 1.8.11, < 2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.5)
@@ -288,6 +290,7 @@ DEPENDENCIES
   brakeman
   capybara
   debug
+  faker (~> 3.2)
   jbuilder
   jsbundling-rails
   kaminari (~> 0.17.0)
@@ -301,6 +304,9 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   web-console
+
+RUBY VERSION
+   ruby 3.3.4p94
 
 BUNDLED WITH
    2.5.17

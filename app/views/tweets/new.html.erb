@@ -1,11 +1,28 @@
-<% content_for :title, "New tweet" %>
+<% content_for :title, "Nuevo tweet" %>
 
-<h1>New tweet</h1>
+<h1>Nuevo tweet</h1>
 
-<%= render "form", tweet: @tweet %>
+<%= form_with(model: @tweet, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :description, "Descripción del Tweet" %>
+    <br>
+    <%= form.text_area :description, placeholder: "Escribe tu mensaje aquí..." %>
+  </div>
 
-<br>
+  <br>
+
+  <div class="field">
+    <%= form.label :user_name, "Nombre de Usuario" %>
+    <br>
+    <%= form.text_field :user_name, placeholder: "Tu nombre de usuario..." %>
+  </div>
+
+  <div class="actions">
+  <br>
+    <%= form.submit "Publicar Tweet" %>
+  </div>
+<% end %>
 
 <div>
-  <%= link_to "Back to tweets", tweets_path %>
+  <%= link_to "Volver a tweets", tweets_path %>
 </div>

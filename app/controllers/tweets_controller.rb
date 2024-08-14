@@ -3,10 +3,12 @@ class TweetsController < ApplicationController
 
   # GET /tweets or /tweets.json
   def index
-    @tweets = if params[:search].present?
-      Tweet.where("description ILIKE ?", "%#{params[:search]}%").page(params[:page]).per(10)
+    if params[:search].present?
+      @tweets = Tweet.where("description ILIKE ? OR user_name ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
+                     .page(params[:page])
+                     .per(10)
     else
-      Tweet.page(params[:page]).per(10)
+      @tweets = Tweet.page(params[:page]).per(10)
     end
   end
 
@@ -29,7 +31,7 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to tweet_url(@tweet), notice: "Tweet was successfully created." }
+        format.html { redirect_to tweet_url(@tweet), notice: "El tweet se creó correctamente." }
         format.json { render :show, status: :created, location: @tweet }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +44,7 @@ class TweetsController < ApplicationController
   def update
     respond_to do |format|
       if @tweet.update(tweet_params)
-        format.html { redirect_to tweet_url(@tweet), notice: "Tweet was successfully updated." }
+        format.html { redirect_to tweet_url(@tweet), notice: "El tweet se creó correctamente." }
         format.json { render :show, status: :ok, location: @tweet }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,7 +58,7 @@ class TweetsController < ApplicationController
     @tweet.destroy
 
     respond_to do |format|
-      format.html { redirect_to tweets_url, notice: "Tweet was successfully destroyed." }
+      format.html { redirect_to tweets_url, notice: "El tweet se creó correctamente." }
       format.json { head :no_content }
     end
   end
