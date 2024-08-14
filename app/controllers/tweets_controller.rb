@@ -1,9 +1,13 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: %i[ show edit update destroy ]
+  before_action :set_tweet, only: %i[show edit update destroy]
 
   # GET /tweets or /tweets.json
   def index
-    @tweets = Tweet.all
+    @tweets = if params[:search]
+                Tweet.where("description ILIKE ?", "%#{params[:search]}%").page(params[:page]).per(10)
+              else
+                Tweet.page(params[:page]).per(10)
+              end
   end
 
   # GET /tweets/1 or /tweets/1.json
@@ -49,7 +53,7 @@ class TweetsController < ApplicationController
 
   # DELETE /tweets/1 or /tweets/1.json
   def destroy
-    @tweet.destroy!
+    @tweet.destroy
 
     respond_to do |format|
       format.html { redirect_to tweets_url, notice: "Tweet was successfully destroyed." }
@@ -58,13 +62,15 @@ class TweetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tweet
-      @tweet = Tweet.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def tweet_params
-      params.require(:tweet).permit(:description, :user_name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tweet
+    @tweet = Tweet.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def tweet_params
+    params.require(:tweet).permit(:description, :user_name)
+  end
 end
+
