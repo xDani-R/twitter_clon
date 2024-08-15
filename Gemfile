@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gem "rails", "~> 7.2.0"
 gem 'kaminari', '~> 0.17.0'
 ruby '3.3.4'
-gem 'faker', '~> 3.2'
+gem 'faker', '~> 3.4'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use postgresql as the database for Active Record
